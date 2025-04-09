@@ -1,14 +1,16 @@
 export enum ThemeMode {
   light = 'light',
   dark = 'dark',
-  auto = 'auto'
+  system = 'system'
 }
+
+export type Theme = 'system' | 'light' | 'dark'
 
 export type Locale = 'zh-CN' | 'zh-TW' | 'en-US'
 
 export type AppInfo = {
+  appName: string
   version: string
-  isPackaged: boolean
   appPath: string
   appDataPath: string
   resourcesPath: string

@@ -1,6 +1,6 @@
-import { getAppName } from './constant'
+import { getAppName } from './app'
 
-export function registerProtocolClient(app: Electron.App) {
+export function registerProtocolClient(app: Electron.App): void {
   if (process.defaultApp) {
     if (process.argv.length >= 2) {
       app.setAsDefaultProtocolClient(getAppName(), process.execPath, [process.argv[1]])
@@ -10,7 +10,7 @@ export function registerProtocolClient(app: Electron.App) {
   app.setAsDefaultProtocolClient(getAppName())
 }
 
-export function handleProtocolClient(app: Electron.App) {
+export function handleProtocolClient(app: Electron.App): void {
   // app.on('open-url', (event, url) => {
   //   event.preventDefault()
   //   const parsedUrl = new URL(url)
@@ -19,6 +19,6 @@ export function handleProtocolClient(app: Electron.App) {
   // })
 }
 
-export function handleProtocolUrl(url: string) {
+export function handleProtocolUrl(url: string): void {
   if (!url) return
 }

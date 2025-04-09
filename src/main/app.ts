@@ -1,36 +1,49 @@
 import { app, nativeTheme } from 'electron'
 
-import { getAppDir,getAppUserFilesDir,getAppUserDataDir,getAppResourceDir，getAppLogDir } from './utils/directory'
+import { isDev } from './constant'
+import { Theme, AppInfo } from '@types'
+
+import {
+  getAppDir,
+  getAppUserFilesDir,
+  getAppUserDataDir,
+  getAppResourceDir,
+  getAppLogDir
+} from './utils/directory'
 
 if (isDev) {
   app.setPath('userData', app.getPath('userData') + 'Dev')
 }
 
-export function getAppName() {
+export function getAppName(): string {
   return app.getName()
 }
 
-export function getAppVersion() {
+export function getAppVersion(): string {
   return app.getVersion()
 }
 
-export function getPlatform() {
+export function getPlatform(): string {
   return process.platform === 'darwin' ? 'mac' : process.platform === 'win32' ? 'windows' : 'linux'
 }
 
-export function getSystemLocale() {
+export function getTimeZone(): string {
+  return Intl.DateTimeFormat().resolvedOptions().timeZone
+}
+
+export function getSystemLocale(): string {
   return app.getSystemLocale()
 }
 
-export function getLocale() {
+export function getLocale(): string {
   return app.getLocale()
 }
 
-export function getTheme() {
+export function getTheme(): Theme {
   return nativeTheme.themeSource
 }
 
-export function getAppInfo() {
+export function getAppInfo(): AppInfo {
   return {
     appName: getAppName(),
     version: getAppVersion(),

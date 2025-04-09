@@ -1,6 +1,7 @@
 import util from 'node:util'
 
-export function formatArgs(args) {
+// 将参数转换为字符串
+export function formatArgs(args): string {
   return args
     .map((arg) => {
       try {
