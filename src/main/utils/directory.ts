@@ -4,6 +4,7 @@ import { app } from 'electron'
 import log from 'electron-log'
 
 import { getAppName } from '../app'
+import { getAppLogFile } from '../logger'
 
 // 应用根目录
 export function getAppDir(): string {
@@ -53,5 +54,5 @@ export function getAppUserFilesDir(): string {
 }
 
 export function getAppLogDir(): string {
-  return log.transports.file.getFile().path
+  return getAppLogFile().path
 }

@@ -1,9 +1,11 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import log from 'electron-log'
 import { join } from 'node:path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
 import { registerIpc } from './ipc'
+import { registerLogger } from './logger'
 
 function createWindow(): void {
   // Create the browser window.
@@ -37,6 +39,9 @@ function createWindow(): void {
   }
 
   registerIpc(mainWindow)
+  registerLogger(mainWindow)
+
+  log.info('App is ready')
 }
 
 // This method will be called when Electron has finished
@@ -72,6 +77,7 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+  log.info('App is closed')
 })
 
 // In this file you can include the rest of your app's specific main process

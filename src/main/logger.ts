@@ -1,75 +1,43 @@
-import log from 'electron-log'
 import { ipcMain, ipcRenderer, BrowserWindow } from 'electron'
-import chalk from 'chalk'
-import { formatArgs } from './utils'
+import log from 'electron-log'
 
-// 日志等级
-log.transports.file.level = 'info'
+export function getAppLogFile(): log.LogFile {
+  return log.transports.file.getFile()
+}
 
 export function registerLogger(mainWindow: BrowserWindow): void {
-  const origDebug = console.debug
-  const origLog = console.log
-  const origInfo = console.info
-  const origWarn = console.warn
-  const origError = console.error
+  // 日志等级
+  log.transports.file.level = 'info'
 
-  console.debug = (...args): void => {
-    const msg = formatArgs(args)
-    log.debug(msg)
-    origDebug(chalk.gray('[DUBUG]'), ...args)
-  }
-
-  console.log = (...args): void => {
-    const msg = formatArgs(args)
-    log.log(msg)
-    origLog(chalk.green('[LOG]'), ...args)
-  }
-
-  console.info = (...args): void => {
-    const msg = formatArgs(args)
-    log.info(msg)
-    origInfo(chalk.green('[INFO]'), ...args)
-  }
-
-  console.warn = (...args): void => {
-    const msg = formatArgs(args)
-    log.warn(msg)
-    origWarn(chalk.yellow('[WARN]'), ...args)
-  }
-
-  console.error = (...args): void => {
-    const msg = formatArgs(args)
-    log.error(msg)
-    origError(chalk.red('[ERROR]'), ...args)
-  }
-
-  const rendererLogger = log.create({ logId: 'renderer' })
-  rendererLogger.transports.file.level = 'info'
-  rendererLogger.initialize()
+  const log2 = log.create({ logId: 'renderer' })
+  log2.transports.file.level = 'info'
+  log2.transports.file.fileName = 'web.log'
+  log2.initialize()
 
   mainWindow.webContents.on('console-message', (details) => {
-    ipcRenderer.send('app:log', {
-      level: details.level,
-      message: details.message
-    })
+    rendererLogger(details.level, details.message)
   })
 
   ipcMain.on('app:log', (_, level, message) => {
+    rendererLogger(level, message)
+  })
+
+  function rendererLogger(level, message): void {
     switch (level) {
       case 'debug':
-        rendererLogger.debug(message)
+        log2.debug(message)
         break
       case 'info':
-        rendererLogger.info(message)
+        log2.info(message)
         break
       case 'warn':
-        rendererLogger.warn(message)
+        log2.warn(message)
         break
       case 'error':
-        rendererLogger.error(message)
+        log2.error(message)
         break
       default:
-        rendererLogger.log(message)
+        log2.log(message)
     }
-  })
+  }
 }

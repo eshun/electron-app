@@ -1,6 +1,8 @@
 {
   "name": "electron-app",
   "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
   "description": "An Electron application with Vue and TypeScript",
   "main": "./out/main/index.js",
   "author": "78552423@qq.com",

@@ -3,7 +3,7 @@ import { reactive } from 'vue'
 
 const versions = reactive({ ...window.electron.process.versions })
 
-console.log('versions', versions)
+console.info('versions', JSON.stringify(versions))
 </script>
 
 <template>

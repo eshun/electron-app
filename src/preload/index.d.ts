@@ -1,12 +1,5 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
-
-interface Console {
-  debug: (...args) => void
-  log: (...args) => void
-  info: (...args) => void
-  warn: (...args) => void
-  error: (...args) => void
-}
+import { AppInfo } from '@types'
 
 declare global {
   interface Window {

@@ -3,7 +3,7 @@ import eslintConfigPrettier from '@electron-toolkit/eslint-config-prettier'
 import eslintPluginVue from 'eslint-plugin-vue'
 
 export default tseslint.config(
-  { ignores: ['**/node_modules', '**/dist', '**/out'] },
+  { ignores: ['**/node_modules', '**/dist', '**/out', '**/build', '.gitignore'] },
   tseslint.configs.recommended,
   eslintPluginVue.configs['flat/recommended'],
   {

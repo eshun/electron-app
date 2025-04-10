@@ -7,5 +7,7 @@ interface ImportMeta {
 }
 
 declare global {
-  interface Window {}
+  interface Window {
+    console: Console
+  }
 }
