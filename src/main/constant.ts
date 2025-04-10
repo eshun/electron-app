@@ -6,8 +6,7 @@ export const isDev = process.env.NODE_ENV === 'development'
 export const DEFAULT_WINDOW_State = {
   width: 900,
   height: 670,
-  x: 0,
-  y: 0,
+  center: true,
   isMaximized: false,
   isFullScreen: false
 }

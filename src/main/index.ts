@@ -19,6 +19,10 @@ function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: quickWindow.width,
     height: quickWindow.height,
+    x: quickWindow.x,
+    y: quickWindow.y,
+    center: quickWindow.center,
+    fullscreen: quickWindow.isFullScreen,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -29,6 +33,10 @@ function createWindow(): void {
   })
 
   mainWindow.on('ready-to-show', () => {
+    if (quickWindow.isMaximized) {
+      mainWindow.maximize()
+    }
+
     mainWindow.show()
   })
 

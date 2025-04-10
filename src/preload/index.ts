@@ -6,7 +6,11 @@ import { AppInfo } from '@types'
 const api = {
   getAppInfo: (): Promise<AppInfo> => ipcRenderer.invoke('app:info'),
   reload: (): Promise<void> => ipcRenderer.invoke('app:reload'),
-  getDeviceInfo: (): Promise<void> => ipcRenderer.invoke('device:info')
+  getDeviceInfo: (): Promise<void> => ipcRenderer.invoke('device:info'),
+
+  file: {
+    openPath: (path: string) => ipcRenderer.invoke('file:openPath', path)
+  }
 }
 
 const log = {

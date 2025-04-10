@@ -43,9 +43,10 @@ export interface WindowState {
   remote?: string
   width: number
   height: number
-  x: number
-  y: number
+  x?: number
+  y?: number
   displayBounds?: DisplayBounds
+  center?: boolean
   isMaximized: boolean
   isFullScreen: boolean
 }
