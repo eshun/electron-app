@@ -1,13 +1,14 @@
 import { ElectronAPI } from '@electron-toolkit/preload'
-import { AppInfo } from '@types'
+import { AppInfo, DeviceInfo } from '@types'
 
 declare global {
   interface Window {
     electron: ElectronAPI
     api: {
       getAppInfo: () => Promise<AppInfo>
-      reload: () => void
+      reload: () => Promise<void>
+      getDeviceInfo: () => Promise<DeviceInfo>
     }
-    console: Console
+    logger: Console
   }
 }

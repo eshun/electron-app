@@ -5,7 +5,8 @@ import { AppInfo } from '@types'
 // Custom APIs for renderer
 const api = {
   getAppInfo: (): Promise<AppInfo> => ipcRenderer.invoke('app:info'),
-  reload: (): Promise<void> => ipcRenderer.invoke('app:reload')
+  reload: (): Promise<void> => ipcRenderer.invoke('app:reload'),
+  getDeviceInfo: (): Promise<void> => ipcRenderer.invoke('device:info')
 }
 
 const log = {

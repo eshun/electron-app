@@ -33,7 +33,7 @@ function createInstanceChecker() {
 export const isClassInstance = createInstanceChecker()
 
 // 导出一个默认函数，用于创建或获取一个对象
-export default function createOrGet<T>(objectClass: { new (): T }, storageKey?: string): T {
+export function createOrGet<T>(objectClass: { new (): T }, storageKey?: string): T {
   // 如果没有传入storageKey，则使用objectClass的name属性作为storageKey
   if (!storageKey) {
     storageKey = objectClass.name

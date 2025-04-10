@@ -6,12 +6,19 @@ import icon from '../../resources/icon.png?asset'
 
 import { registerIpc } from './ipc'
 import { registerLogger } from './logger'
+import { configManager } from './configManager'
 
 function createWindow(): void {
+  const windows = configManager.getWindows()
+
+  const quickWindow = configManager.getQuickWindow()
+  //configManager.setQuickWindow(quickWindow)
+  configManager.getLocale()
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
+    width: quickWindow.width,
+    height: quickWindow.height,
     show: false,
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
@@ -49,7 +56,7 @@ function createWindow(): void {
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
+  electronApp.setAppUserModelId(import.meta.env.VITE_MAIN_BUNDLE_ID || 'com.electron')
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.
@@ -74,32 +81,36 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
+  log.info(`App is closed`)
   if (process.platform !== 'darwin') {
     app.quit()
   }
-  log.info('App is closed')
 })
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
+process.on('SIGINT', () => {
+  log.info('收到 Ctrl+C (SIGINT)，准备退出...')
+  process.exit(0)
+})
+
+process.on('SIGTERM', () => {
+  log.info('收到 kill PID (SIGTERM)，准备退出...')
+  process.exit(0)
+})
+
+process.on('exit', (code) => {
+  log.info(`App is exit(${code})`)
+})
+
 // 捕获未处理的异常
 process.on('uncaughtException', (error) => {
-  console.error('主进程未捕获异常:', error)
+  log.error('主进程未捕获异常:', error)
+  process.exit(1)
 })
 
 // 捕获未处理的 Promise 拒绝
 process.on('unhandledRejection', (reason, promise) => {
-  console.error('主进程未处理的 Promise 拒绝:', reason, promise)
+  log.error('主进程未处理的 Promise 拒绝:', reason, promise)
 })
-
-// window.onerror = function (message, source, lineno, colno, error) {
-//   console.error('渲染进程运行时错误:', { message, source, lineno, colno, error })
-//   // 你可以将这些信息发送给主进程或远程日志服务器
-// }
-
-// window.addEventListener('unhandledrejection', (event) => {
-//   console.error('渲染进程未处理的 Promise 拒绝:', event.reason)
-//   // 阻止默认行为（如控制台警告）
-//   event.preventDefault()
-// })

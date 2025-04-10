@@ -9,11 +9,43 @@ export type Theme = 'system' | 'light' | 'dark'
 export type Locale = 'zh-CN' | 'zh-TW' | 'en-US'
 
 export type AppInfo = {
-  appName: string
+  name: string
   version: string
   appPath: string
   appDataPath: string
   resourcesPath: string
   filesPath: string
   logsPath: string
+}
+
+export type DeviceInfo = {
+  os: string
+  deviceId: string
+  machineId: string
+  macMachineId: string
+  hostname: string
+}
+
+export type AppConfig = {
+  machineId: string
+  quickWindow: WindowState
+  window?: WindowState[]
+}
+
+export interface DisplayBounds {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+export interface WindowState {
+  remote?: string
+  width: number
+  height: number
+  x: number
+  y: number
+  displayBounds?: DisplayBounds
+  isMaximized: boolean
+  isFullScreen: boolean
 }

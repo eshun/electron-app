@@ -18,8 +18,8 @@ export function registerLogger(mainWindow: BrowserWindow): void {
     rendererLogger(details.level, details.message)
   })
 
-  ipcMain.on('app:log', (_, level, message) => {
-    rendererLogger(level, message)
+  ipcMain.on('app:log', (_, event) => {
+    rendererLogger(event.level, event.message)
   })
 
   function rendererLogger(level, message): void {

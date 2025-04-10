@@ -12,7 +12,11 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: electron-app
+  executableName: ${productName}
+  artifactName: ${productName}-${version}-portable.${ext}
+  target:
+    - target: nsis
+    - target: portable
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

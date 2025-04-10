@@ -1,6 +1,9 @@
 declare global {
   namespace Electron {
-    interface App {}
+    interface App {
+      name: string
+      version: string
+    }
   }
 }
 

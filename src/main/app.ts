@@ -45,7 +45,7 @@ export function getTheme(): Theme {
 
 export function getAppInfo(): AppInfo {
   return {
-    appName: getAppName(),
+    name: getAppName(),
     version: getAppVersion(),
     appPath: getAppDir(),
     filesPath: getAppUserFilesDir(),
