@@ -5,56 +5,54 @@ export function getAppLogFile(): log.LogFile {
   return log.transports.file.getFile()
 }
 
-const LoggerLevel: string[] = ['info', 'warn', 'error', 'debug']
+const log2 = log.create({ logId: 'web' })
 
-export function registerLogger(mainWindow: BrowserWindow): void {
+export function initLogger(): void {
   // 日志等级
   log.transports.file.level = 'info'
 
-  const log2 = log.create({ logId: 'renderer' })
   log2.transports.file.level = 'info'
   log2.transports.file.fileName = 'web.log'
   log2.initialize()
+}
 
-  mainWindow.webContents.on(
-    'console-message',
-    (details, levelNumber, message, lineNumber, sourceId) => {
-      //console.log(details, level, message, lineNumber, sourceId)
-
-      const level = details.level || LoggerLevel[levelNumber]
-      rendererLogger({
-        ...details,
-        level,
-        message,
-        lineNumber,
-        sourceId
-      })
-    }
-  )
-
-  ipcMain.on('app:log', (_, event) => {
-    //console.log(event)
-    rendererLogger(event)
-  })
-
-  function rendererLogger(message: { level; message; lineNumber; sourceId }): void {
-    if (message && message.message) {
-      switch (message.level) {
-        case 'debug':
-          log2.debug(message)
-          break
-        case 'info':
-          log2.info(message)
-          break
-        case 'warn':
-          log2.warn(message)
-          break
-        case 'error':
-          log2.error(message)
-          break
-        default:
-          log2.log(message)
-      }
+export function rendererLogger(message: WebConsoleMessage): void {
+  if (message && message.message) {
+    const logMsg = JSON.stringify(message)
+    switch (message.level) {
+      case 'debug':
+        log2.debug(logMsg)
+        break
+      case 'info':
+        log2.info(logMsg)
+        break
+      case 'warning':
+        log2.warn(logMsg)
+        break
+      case 'error':
+        log2.error(logMsg)
+        break
+      default:
+        log2.log(logMsg)
     }
   }
+}
+
+const LoggerLevel = Object.freeze(['debug', 'info', 'warn', 'error'])
+
+export function registerLogger(win: BrowserWindow): void {
+  win.webContents.on('console-message', (event, levelNumber, message, lineNumber, sourceId) => {
+    //console.log(event, levelNumber, message, lineNumber, sourceId)
+
+    const url = win.webContents.getURL()
+    const level = event.level || LoggerLevel[levelNumber]
+    rendererLogger({
+      ...event,
+      url,
+      level,
+      message,
+      lineNumber,
+      sourceId
+    } as WebConsoleMessage)
+  })
 }

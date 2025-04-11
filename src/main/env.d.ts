@@ -21,16 +21,20 @@ interface WebConsoleMessage {
   /**
    * Line number in the log source
    */
-  lineNumber: number
+  lineNumber?: number
   /**
    * URL of the log source
    */
-  sourceId: string
+  sourceId?: string
+  /**
+   * URL of the webContents
+   */
+  url?: string
 }
 
 enum LoggerLevel {
+  debug = 'debug',
   info = 'info',
   warning = 'warning',
-  error = 'error',
-  debug = 'debug'
+  error = 'error'
 }

@@ -40,7 +40,7 @@ export interface DisplayBounds {
 }
 
 export interface WindowState {
-  remote?: string
+  remoteUrl?: string
   width: number
   height: number
   x?: number
