@@ -30,7 +30,7 @@ export type DeviceInfo = {
 export type AppConfig = {
   machineId: string
   quickWindow: WindowState
-  window?: WindowState[]
+  windows?: WindowState[]
 }
 
 export interface DisplayBounds {
@@ -48,6 +48,6 @@ export interface WindowState {
   y?: number
   displayBounds?: DisplayBounds
   center?: boolean
-  isMaximized: boolean
-  isFullScreen: boolean
+  isMaximized?: boolean
+  isFullScreen?: boolean
 }

@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import UnoCSS from 'unocss/vite'
 import vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
@@ -26,6 +27,6 @@ export default defineConfig({
         '@types': resolve('src/renderer/src/types')
       }
     },
-    plugins: [vue()]
+    plugins: [vue(), UnoCSS()]
   }
 })

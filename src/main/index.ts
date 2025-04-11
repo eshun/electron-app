@@ -1,12 +1,22 @@
 import { app, shell, BrowserWindow } from 'electron'
 import log from 'electron-log'
-import { electronApp, optimizer } from '@electron-toolkit/utils'
+import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
 import { configManager } from './configManager'
 import { createWindow, startLodingWindow } from './windowManager'
 
 import { registerIpc } from './ipc'
 import { initLogger } from './logger'
+
+if (!is.dev) {
+  // 设置开机自启动
+  app.setLoginItemSettings({
+    openAtLogin: true
+  })
+}
+// 获取当前开机自启动状态
+const loginSettings = app.getLoginItemSettings()
+console.log(`应用是否开机启动: ${loginSettings.openAtLogin}`)
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

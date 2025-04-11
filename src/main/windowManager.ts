@@ -147,6 +147,10 @@ export function createUrlWindow(
     if (win.isMaximized) {
       appWindow?.maximize()
     }
+
+    if (win.isFullScreen) {
+      appWindow?.setFullScreen(true)
+    }
   })
   appWindow.on('focus', () => {})
   appWindow.on('blur', () => {})
