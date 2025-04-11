@@ -16,7 +16,7 @@ const onOpenPath = async (path?: string) => {
 </script>
 
 <template>
-  <div class="text">
+  <div class="warp">
     <h2>{{ appInfo?.name }}</h2>
     <div class="ver">Version: {{ appInfo?.version }}</div>
     <div @click="onOpenPath(appInfo?.appUserPath)">AppPath: {{ appInfo?.appUserPath }}</div>

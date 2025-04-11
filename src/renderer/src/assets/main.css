@@ -18,8 +18,8 @@ body {
   margin-bottom: 80px;
 }
 
-.text {
-  font-size: 28px;
+.warp {
+  font-size: 23px;
   color: var(--ev-c-text-1);
   font-weight: 700;
   line-height: 42px;

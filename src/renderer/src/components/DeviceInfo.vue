@@ -10,7 +10,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="text">
+  <div class="warp">
     <div class="os">OS: {{ deviceInfo?.os }}</div>
     <div>Hostname: {{ deviceInfo?.hostname }}</div>
     <div>DeviceId: {{ deviceInfo?.deviceId }}</div>
