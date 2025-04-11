@@ -20,8 +20,8 @@ export function getHostname(): string {
 }
 
 export function getOS(): string {
-  // type version release os.arch()
-  return os.type() + ' ' + os.arch() + ' ' + os.version()
+  // type version release os.arch() os.version()
+  return os.type() + ' ' + os.arch() + ' ' + os.release()
 }
 
 export function getDeviceInfo(): DeviceInfo {

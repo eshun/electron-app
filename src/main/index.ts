@@ -14,10 +14,9 @@ import { initLogger } from './logger'
 app.whenReady().then(() => {
   // Set app user model id for windows
   electronApp.setAppUserModelId(import.meta.env.VITE_MAIN_BUNDLE_ID || 'com.electron')
-
   configManager.getLocale()
-  initLogger()
   registerIpc(app)
+  initLogger()
 
   // Default open or close DevTools by F12 in development
   // and ignore CommandOrControl + R in production.

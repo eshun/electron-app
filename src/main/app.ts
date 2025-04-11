@@ -8,7 +8,8 @@ import {
   getAppUserFilesDir,
   getAppUserDataDir,
   getAppResourceDir,
-  getAppLogDir
+  getAppLogDir,
+  getAppUserDir
 } from './utils/directory'
 
 if (isDev) {
@@ -48,9 +49,10 @@ export function getAppInfo(): AppInfo {
     name: getAppName(),
     version: getAppVersion(),
     appPath: getAppDir(),
-    filesPath: getAppUserFilesDir(),
-    appDataPath: getAppUserDataDir(),
+    appUserPath: getAppUserDir(),
+    appUserDataPath: getAppUserDataDir(),
     resourcesPath: getAppResourceDir(),
+    filesPath: getAppUserFilesDir(),
     logsPath: getAppLogDir()
   }
 }

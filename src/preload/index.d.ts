@@ -8,9 +8,7 @@ declare global {
       getAppInfo: () => Promise<AppInfo>
       reload: () => Promise<void>
       getDeviceInfo: () => Promise<DeviceInfo>
-      file: {
-        openPath: (path: string) => Promise<void>
-      }
+      openPath: (path: string) => Promise<void>
     }
     logger: Console
   }

@@ -12,7 +12,8 @@ export type AppInfo = {
   name: string
   version: string
   appPath: string
-  appDataPath: string
+  appUserPath: string
+  appUserDataPath: string
   resourcesPath: string
   filesPath: string
   logsPath: string
